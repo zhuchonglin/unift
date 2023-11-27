@@ -1,6 +1,7 @@
 import 'package:unift/unift_core/model.dart';
 
 import 'app_container.dart';
+import 'dart:ui' show PlatformDispatcher;
 
 /// rpx单位换算 return 逻辑像素px
 double rpx(double size) {
@@ -25,4 +26,9 @@ AppContainer app() {
 /// 获取模型容器实例
 ModelContainer model() {
   return ModelContainer();
+}
+
+/// 获取平台调度员实例
+PlatformDispatcher window() {
+  return PlatformDispatcher.instance;
 }
