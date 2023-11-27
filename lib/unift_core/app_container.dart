@@ -4,14 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:unift/unift_core/container.dart';
 
 /// uniftApp 依赖管理
-class AppContainer with Container<Object> {
+class App with Container<Object> {
   // 容器实例
-  static AppContainer? _appInstance;
+  static App? _appInstance;
   // 容器内实例映射
   final bool isDebug = kDebugMode;
 
   /// 私有构造函数
-  AppContainer._({int uiSketchBaseWidth = 750}) {
+  App._({int uiSketchBaseWidth = 750}) {
     if (kDebugMode) {
       print('UniFt AppContainer Single Instance Create ${DateTime.now()}');
     }
@@ -19,25 +19,46 @@ class AppContainer with Container<Object> {
   }
 
   /// 初始化构建容器（单实例）
-  factory AppContainer({int uiSketchBaseWidth = 750}) {
-    _appInstance ??= AppContainer._(uiSketchBaseWidth: uiSketchBaseWidth);
+  factory App({int uiSketchBaseWidth = 750}) {
+    _appInstance ??= App._(uiSketchBaseWidth: uiSketchBaseWidth);
     return _appInstance!;
   }
 
+  /// APP窗口信息
   static WindowInfo get windowInfo {
-    return AppContainer().getInstance<WindowInfo>();
+    return App().getInstance<WindowInfo>();
+  }
+
+  /// 平台调度员实例
+  static PlatformDispatcher get platformDispatcher {
+    return PlatformDispatcher.instance;
   }
 }
 
 /// 窗口信息类
 class WindowInfo {
+  /// 像素比率
   late final double pixelRatio;
+
+  /// 屏幕像素高度
   late final double screenPixelWidth;
+
+  /// 屏幕像素高度
   late final double screenPixelHeight;
+
+  /// 屏幕宽度
   late final double screenWidth;
+
+  /// 屏幕高度
   late final double screenHeight;
+
+  /// 安全区
   late final SafeAreaInsets safeAreaInsets;
+
+  /// rpx换算比率
   late final double uiSizeRation;
+
+  /// [uiSketchBaseWidth] ui画稿基准宽度 用于计算rpx换算比率
   WindowInfo._([int uiSketchBaseWidth = 750]) {
     final ui.FlutterView view = ui.PlatformDispatcher.instance.implicitView!;
     screenWidth = view.physicalSize.width / view.devicePixelRatio;

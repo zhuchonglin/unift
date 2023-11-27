@@ -10,17 +10,17 @@ double rpx(double size) {
 
 /// 获取屏幕信息
 WindowInfo getWindowInfo() {
-  return app().get<WindowInfo>();
+  return App.windowInfo;
 }
 
 /// 获取App容器实例
-AppContainer unift() {
-  return AppContainer();
+App unift() {
+  return App();
 }
 
 /// 获取App容器实例
-AppContainer app() {
-  return AppContainer();
+App app() {
+  return App();
 }
 
 /// 获取模型容器实例
@@ -30,5 +30,5 @@ ModelContainer model() {
 
 /// 获取平台调度员实例
 PlatformDispatcher window() {
-  return PlatformDispatcher.instance;
+  return App.platformDispatcher;
 }
