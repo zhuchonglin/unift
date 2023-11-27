@@ -44,3 +44,4 @@ app.*.map.json
 /android/app/release
 # 测试文件
 /test/
+/lib/main.dart
