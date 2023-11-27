@@ -1,4 +1,4 @@
-import 'dart:ui' as ui show PlatformDispatcher, FlutterView;
+import 'dart:ui' as ui show PlatformDispatcher, FlutterView, Locale;
 
 import 'package:flutter/foundation.dart';
 import 'package:unift/unift_core/container.dart';
@@ -30,8 +30,13 @@ class App with Container<Object> {
   }
 
   /// 平台调度员实例
-  static PlatformDispatcher get platformDispatcher {
-    return PlatformDispatcher.instance;
+  static ui.PlatformDispatcher get platformDispatcher {
+    return ui.PlatformDispatcher.instance;
+  }
+
+  /// 获取设备语言
+  static ui.Locale get locale {
+    return platformDispatcher.locale;
   }
 }
 
