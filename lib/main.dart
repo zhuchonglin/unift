@@ -3,10 +3,8 @@ import 'package:unift/unift_core/helper.dart';
 import 'package:unift/unift_ref/unift_ref.dart';
 
 import 'unift_ref/ref_widget.dart';
-import 'dart:ui';
 
 void main() {
-  print(window.locale);
   runApp(MaterialApp(
     home: Home(),
   ));
