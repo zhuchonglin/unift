@@ -2,6 +2,8 @@ import 'dart:ui' as ui show PlatformDispatcher, FlutterView, Locale;
 
 import 'package:flutter/foundation.dart';
 import 'package:unift/unift_core/container.dart';
+import 'package:unift/unift_core/model.dart';
+import 'package:unift/unift_core/router.dart';
 
 /// uniftApp 依赖管理
 class App with Container<Object> {
@@ -24,6 +26,9 @@ class App with Container<Object> {
     return _appInstance!;
   }
 
+  /// 静态of查找实例
+  static C of<C extends Object>([String? alias]) => App().getInstance<C>(alias);
+
   /// APP窗口信息
   static WindowInfo get windowInfo {
     return App().getInstance<WindowInfo>();
@@ -37,6 +42,16 @@ class App with Container<Object> {
   /// 获取设备语言
   static ui.Locale get locale {
     return platformDispatcher.locale;
+  }
+
+  /// 路由器实例
+  static Router get router {
+    return Router();
+  }
+
+  /// 数据模型管理容器
+  static Model get model {
+    return Model();
   }
 }
 

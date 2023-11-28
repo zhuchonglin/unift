@@ -24,8 +24,8 @@ App app() {
 }
 
 /// 获取模型容器实例
-ModelContainer model() {
-  return ModelContainer();
+Model model() {
+  return Model();
 }
 
 /// 获取平台调度员实例

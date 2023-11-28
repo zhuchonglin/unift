@@ -1,4 +1,5 @@
 import 'package:unift/unift_core/container.dart';
+import 'package:unift/unift_core/meta.dart' show protected;
 
 import 'typedef.dart' show VoidCallback;
 
@@ -6,7 +7,10 @@ import 'typedef.dart' show VoidCallback;
 abstract mixin class BaseModel {
   /// 是否已销毁
   bool _isDisposed = false;
-  late final String _key;
+
+  /// 该key由[Model]分发,在销毁模型时会从容器中自动移除该模型
+  @protected
+  String? _key;
 
   /// 返回bool,false代表当前监听已销毁
   bool get isDisposed {
@@ -19,6 +23,7 @@ abstract mixin class BaseModel {
   /// 销毁实例
   void dispose() {
     if (!_isDisposed) {
+      _isDisposed = true;
       if (_onDisposedCallback.isNotEmpty) {
         // 遍历监听销毁回调事件列表
         for (var callback in _onDisposedCallback) {
@@ -27,8 +32,7 @@ abstract mixin class BaseModel {
         // 清空回调记录器
         _onDisposedCallback.clear();
       }
-      ModelContainer().deleteKey(_key);
-      _isDisposed = true;
+      if (_key != null) Model().deleteKey(_key!);
     }
   }
 
@@ -36,27 +40,37 @@ abstract mixin class BaseModel {
   void onDisposed(VoidCallback callback) {
     _onDisposedCallback.add(callback);
   }
+
+  /// 共享模型，允许通过Model.of<当前模型>()得到该模型实例。
+  ///
+  /// [alias] 如果存在多个模型类名称相同会冲突,则需要为模型指定别名。
+  void share([String? alias]) {
+    assert(_key == null, '该模型已共享，请勿重复共享');
+    Model().addInstance(this, alias);
+  }
 }
 
 /// 模型管理容器
-final class ModelContainer with Container<BaseModel> {
-  static ModelContainer? _selfInstance;
+final class Model with Container<BaseModel> {
+  static Model? _selfInstance;
 
   /// 构造函数私有化
-  ModelContainer._();
+  Model._();
 
   /// 初始化构建容器（单实例）
-  factory ModelContainer() {
-    _selfInstance ??= ModelContainer._();
+  factory Model() {
+    _selfInstance ??= Model._();
     return _selfInstance!;
   }
+
   @override
   String addInstance(BaseModel instance, [String? alias]) {
     final instanceKey = super.addInstance(instance, alias);
+    instance._key = instanceKey;
     return instanceKey;
   }
 
-  /// 添加一个实例到容器,返回实例唯一k
-  String put(BaseModel instance, [String? alias]) =>
-      addInstance(instance, alias);
+  /// getInstance方法短命名方法
+  static C of<C extends BaseModel>([String? alias]) =>
+      Model().getInstance<C>(alias);
 }
