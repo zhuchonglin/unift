@@ -53,9 +53,7 @@ final class Listener with Dispose {
   }
 
   /// 把当前类实例hashCode做为id
-  int get id {
-    return hashCode;
-  }
+  int get id => hashCode;
 }
 
 /// 监听管理器

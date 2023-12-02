@@ -1,4 +1,4 @@
-import 'package:unift/unift_core/container.dart';
+import 'package:unift/unift_core/abstract/container.dart';
 import 'package:unift/unift_core/meta.dart' show protected;
 
 import 'typedef.dart' show VoidCallback;
@@ -73,4 +73,14 @@ final class Model with Container<BaseModel> {
   /// getInstance方法短命名方法
   static C of<C extends BaseModel>([String? alias]) =>
       Model().getInstance<C>(alias);
+
+  /// 共享一个模型,共享过后可以通过of方法进行查找该模型
+  ///
+  /// 功能同[add]、[addInstance]方法一致，不同之处是该方法返回共享的实例
+  ///
+  /// 静态代理addInstance方法
+  static T share<T extends BaseModel>(T instance, [String? alias]) {
+    Model().addInstance(instance, alias);
+    return instance;
+  }
 }

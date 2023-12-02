@@ -1,6 +1,7 @@
 import 'package:unift/unift_core/model.dart';
+import 'package:unift/unift_core/router.dart';
 
-import 'app_container.dart';
+import 'app.dart';
 import 'dart:ui' show PlatformDispatcher;
 
 /// rpx单位换算 return 逻辑像素px
@@ -31,4 +32,9 @@ Model model() {
 /// 获取平台调度员实例
 PlatformDispatcher window() {
   return App.platformDispatcher;
+}
+
+/// 路由管理器
+RouteManager router() {
+  return RouteManager();
 }
