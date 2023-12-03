@@ -88,7 +88,7 @@ class AppState extends State<UniFtApp> with WidgetsBindingObserver {
       statusBarBrightness: Brightness.dark, // 设置状态栏文字为暗色（仅Android）
     ));
     final router = RouteManager.init(
-      GlobalKey<NavigatorState>(debugLabel: 'UniFtRouteKey'),
+      GlobalKey<NavigatorState>(debugLabel: 'UniFtRouteManager'),
       widget.routes,
     );
     return MaterialApp(

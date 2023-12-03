@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:unift/unift_core/route/route_animation.dart';
 
 /// 路由管理
 class RouteManager {
@@ -37,17 +36,10 @@ class RouteManager {
   NavigatorState get currentState => navigatorKey.currentState!;
 
   void toName(String name, {Map<String, dynamic>? arguments}) {
-    assert(routes.containsKey(name), '未定义路由：$name');
-    if (!routes.containsKey(name)) {
-      // 没有定义路由 或未找到路由
-    }
-    routes.containsKey(name);
+    currentState.pushNamed(name, arguments: arguments);
   }
 
-  void to(Widget page, AnimationType animationType) {
-    currentState.push(UniFtPageRoute(
-      builder: (BuildContext context) => page,
-      fullscreenDialog: true,
-    ));
+  void to(Route page) {
+    currentState.push(page);
   }
 }
