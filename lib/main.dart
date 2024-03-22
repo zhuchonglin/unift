@@ -9,6 +9,8 @@ import 'package:unift/unift_ref/unift_ref.dart';
 void main() {
   final themeManager = ThemeManager.init();
   ThemeManager().changeThemeMode('light');
+
+  /// 在UniFtApp里面对路由进行了封装
   runApp(UniFtApp(
     home: MyHomePage(),
     themeManager: themeManager,
@@ -16,11 +18,13 @@ void main() {
   ));
 }
 
+/// 数据模型 用于跨页面共享状态
 class DataModel extends BaseModel {
   final count = 0.toRef();
 }
 
 class MyHomePage extends StatelessWidget {
+  // 实例化模型 并调用share方法 会将模型自动共享到容器中
   final DataModel model = DataModel().share();
 
   MyHomePage({super.key});
@@ -51,6 +55,7 @@ class MyHomePage extends StatelessWidget {
 }
 
 class SecondPage extends StatelessWidget {
+  // 这里通过模型管理容器的of方法来获取到容器中的共享数据模型
   final DataModel model = Model.of<DataModel>();
   SecondPage({super.key});
   @override

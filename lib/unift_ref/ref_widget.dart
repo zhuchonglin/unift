@@ -126,7 +126,7 @@ class RefView extends RefWidget {
 /// RefView的助手函数
 ///
 /// [builder] 给定一个函数返回widget
-/// [watch] 监听的响应式代理对象map映射 key为对象，value为事件列表，完全监听value可以设置为[null]
+/// [watch] 监听的响应式代理对象map映射 key为响应式对象，value为事件列表，完全监听value可以设置为[null]
 Widget refEl(WidgetCallback builder, [Map<RefProxy, List<Object?>>? watch]) {
   if (watch == null) {
     return RefView(builder);

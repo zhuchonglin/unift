@@ -62,7 +62,7 @@ abstract mixin class ListenerManager {
   final Map<String, Map<int, Listener>> _listeners = {};
 
   /// 添加单个事件监听
-  /// [event] 事件名称null为默认事件名称
+  /// [event] 事件名称null为监听所有变化，响应式对象任何一个属性变化都会触发
   ///
   /// [callback] 触发事件的回调
   @protected
@@ -85,7 +85,7 @@ abstract mixin class ListenerManager {
   ///
   /// 该方法会创建一个监听器，让其监听多个事件
   ///
-  /// [events] 监听事件名称列表可以传入null传入null则等于是调用addListener方法
+  /// [events] 监听事件名称列表，传入属性名称可以只监听指定属性变化
   ///
   /// [callback] 触发事件的回调
   ///
