@@ -44,9 +44,10 @@ abstract mixin class BaseModel {
   /// 共享模型，允许通过Model.of<当前模型>()得到该模型实例。
   ///
   /// [alias] 如果存在多个模型类名称相同会冲突,则需要为模型指定别名。
-  void share([String? alias]) {
+  dynamic share([String? alias]) {
     assert(_key == null, '该模型已共享，请勿重复共享');
     Model().addInstance(this, alias);
+    return this;
   }
 }
 
